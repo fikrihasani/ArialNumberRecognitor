@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //cek apakah image ada atau tidak
     private boolean hasImage(@NonNull ImageView img){
         Drawable drawable = img.getDrawable();
         boolean hasImage = (drawable != null);
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         return hasImage;
     }
 
+    //buka gallery
     private void openGallery(){
         Intent gallery =  new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         gallery.setType("image/*");
@@ -157,7 +159,8 @@ public class MainActivity extends AppCompatActivity {
 //            return (toBW(x,y+1,heightMax,widthMax, count+1) | toBW(x+1,y,heightMax,widthMax, count+1));
 //        }
 //    }
-//        Bitmap bitCopy = bitmap.copy(Bitmap.Config.ARGB_8888,true);
+
+    //mengubah warna jadi hitam putih
     private void toBW(){
         int height = scaledBitmapCopy.getHeight();
         int width = scaledBitmapCopy.getWidth();
@@ -199,6 +202,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
     //get chain code
     private void getChainCode(int xAwal, int yAwal){
         Boolean bukanAwal = true;
@@ -278,7 +282,7 @@ public class MainActivity extends AppCompatActivity {
             int pixel= scaledBitmapCopy.getPixel(x,y);
             int pixelSide = scaledBitmapCopy.getPixel(xSide,ySide);
             int pixelBefore = scaledBitmapCopy.getPixel(xBefore,yBefore);
-            System.out.println("XBefore: "+xBefore+", YBefore: "+yBefore+", X: "+x+", Y: "+y+", Direction: "+direction+"Warna: "+Color.red(pixelBefore));
+            System.out.println("XBefore: "+xBefore+", YBefore: "+yBefore+", X: "+x+", Y: "+y+", XSide: "+xSide+", YSide: "+ySide+", Direction: "+direction+" Warna: "+Color.red(pixelBefore)+", Warna X: "+Color.red(pixel)+"Warna Samping: "+Color.red((pixelSide)));
 
             //check colour
             if (Color.red(pixelSide) != Color.red(pixel)){
@@ -332,6 +336,50 @@ public class MainActivity extends AppCompatActivity {
                 }
                 xBefore = x;
                 yBefore = y;
+            }else if(Color.red(pixel) == Color.red(pixelBefore)){
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore)) == Color.red(pixelBefore)) && (Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore-1)) != Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore))&&(direction.equals("t") | direction.equals("s") | direction.equals("u") | direction.equals("tl") | direction.equals("tt")))){
+                    direction = "t";
+                    x = xBefore + 1;
+                    y = yBefore;
+                }else
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore+1)) == Color.red(pixelBefore))&& (Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore+1)) != Color.red(scaledBitmapCopy.getPixel(xBefore+2,yBefore)))&&(direction.equals("t") | direction.equals("s") | direction.equals("tl") | direction.equals("tt") | direction.equals("bl"))){
+                    direction = "tt";
+                    x = xBefore+1;
+                    y = yBefore+1;
+                }else
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore,yBefore+1)) ==  Color.red(pixelBefore)) && (Color.red(scaledBitmapCopy.getPixel(xBefore,yBefore+1)) !=  Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore+1))) &&(direction.equals("t") | direction.equals("s") | direction.equals("b") | direction.equals("tt") | direction.equals("bd"))){
+                    direction = "s";
+                    x = xBefore;
+                    y = yBefore+1;
+                }else
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore+1)) == Color.red(pixelBefore)) &&(Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore+1)) != Color.red(scaledBitmapCopy.getPixel(xBefore,yBefore+2))) && (direction.equals("s") | direction.equals("b") | direction.equals("tt") | direction.equals("bd") | direction.equals("bl"))){
+                    direction = "bd";
+                    x = xBefore-1;
+                    y = yBefore+1;
+                }else
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore)) == Color.red(pixelBefore)) &&(Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore)) != Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore+1))) && (direction.equals("s") | direction.equals("u") | direction.equals("b") | direction.equals("bd") | direction.equals("bl"))){
+                    direction = "b";
+                    x = xBefore-1;
+                    y = yBefore;
+                }else
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore-1)) == Color.red(pixelBefore)) &&(Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore-1)) != Color.red(scaledBitmapCopy.getPixel(xBefore-2,yBefore))) && (direction.equals("u") | direction.equals("b") | direction.equals("tl") | direction.equals("bd") | direction.equals("bl"))){
+                    direction = "bl";
+                    x = xBefore-1;
+                    y = yBefore-1;
+                }else
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore,yBefore-1)) == Color.red(pixelBefore)) &&(Color.red(scaledBitmapCopy.getPixel(xBefore,yBefore-1)) != Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore-1))) && (direction.equals("t") | direction.equals("u") | direction.equals("b") | direction.equals("tl") | direction.equals("bl"))){
+                    direction = "u";
+                    x = xBefore;
+                    y = yBefore-1;
+                }else
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore+1, yBefore-1)) == Color.red(pixelBefore)) && (Color.red(scaledBitmapCopy.getPixel(xBefore+1, yBefore-1)) == Color.red(scaledBitmapCopy.getPixel(xBefore, yBefore-2))) && (direction.equals("t") | direction.equals("u") | direction.equals("tl") | direction.equals("tt") | direction.equals("bl"))){
+                    direction = "tl";
+                    x = xBefore+1;
+                    y = yBefore-1;
+                }
+                xBefore = x;
+                yBefore = y;
+
             }
         }
     }
