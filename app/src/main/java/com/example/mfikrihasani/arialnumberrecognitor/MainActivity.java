@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 //init chain code
                 initChainCodeArray();
                 //compare result
-                for (int i = 1; i<10; i++){
+                for (int i = 0; i<10; i++){
 //                    Log.d("cekString", "onActivityResult: "+chainCodeList[i].charAt(i));
                     checkDif(chainCodeResult, chainCodeList[i],i);
                 }
@@ -141,9 +141,9 @@ public class MainActivity extends AppCompatActivity {
     }
     //get max
     private Integer getMin(){
-        int min = chainCodeDif[1];
-        int position = 1;
-        for (int i = 1; i<10;i++){
+        int min = chainCodeDif[0];
+        int position = 0;
+        for (int i = 0; i<10;i++){
             if (chainCodeDif[i] <= min){
                 min = chainCodeDif[i];
                 Log.d("minimum", "getMin: "+min);
@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
 
     //init array for chain code
     private void initChainCodeArray(){
-        chainCodeList[0] = "";
+        chainCodeList[0] = "000000000000000000000000000000000000000000210000000210000002210002100002100022100002111121000211100221111222111121002221122211112221122222112221002222221122222112222211222222221122222222210022222222222222222211222222222222222222222222222222222222222222222222222222222222222222222222222222222222224322222222222222222244322222222222224322222222432222222224322222243222222443222432222432222432222432224322443332222433322433433322433334432244334433443224444334433444444432244444444444433444444444444444444444444654444444444665444444446544465444444665554446544446655555565554465565555655665446655665565566556665566666544666655666666655666665566666666665566666666665446666666666666666556666666666666666666666666666666666666666666666666666666666666666666666666666666666666666660066666666666666666660006666666666666600666666600666666666006666666006666600066666660066666006666600666600666006666000666006600666660066006660006600006600666006600660000066600660000000660000666000000066000000006";
         chainCodeList[1] = "0000000000000000000222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222444444444444444444444444444666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666654332243343333224433334333343343343333433433433433433444334446666666666666666666666666666666006606600066000066000660006600660006600066066006600066006600066066006600660660066000660660066006606600666606600660600666600660660066660666";
         chainCodeList[2] = "000000000000221000000000000000000000000222100000000000221000000022210002221000000022100022210002222221000221000222222210000222222222100022222222222222222222222222222222222444322222222224444322222244432224443222222444322444322244432222224443222444322444322244432224443224443222444444432244432224443222444432244432224443224444444322244432244432224443222444322444322244444443224443222444322244432222224443224444322210000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002222222222222222222222222222444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444666666666666666660000666666660000666666600006666666000066600006666666600006660000666600006660000666600006666000066600006666000006660000666600000000666000066660000666600006660000666600000000666000066660000666600006660000666600006660000666600000666600006660000666600006660000666600006666666000066666660000666666600006666666666666666666666666666666665444666666544466544466654446665444665444444466654444444444444444444444444444444444444444444444443222444444432244432224443222444322444432222224443222222222222224443222222444444444444444444444444444444466666666666666666666600006666666666000066666666000066600006666666000066660000666000000006666000066660000000006660000000000006666000000000000000000000000000066";
         chainCodeList[3] = "00000000000000222100000000000000000000002210000000000002221000000002221000000000222100022210000222100022210000222222210002221000022222222222100002222222222222222222222222222222222244443222222244443222222444322244443222444322244443222444322244443222100002221000000002221000000002221000222100002221000022210002222222100002222222100022222222222222222222222222222222222222222222222222444322222222222444432222222444322244443222444432224443222444432224443222444432224444444432224444444432224444444444444322244444444444444444444444444444444444444444444444444444444444444466654444444444446665444444446665444444444666544466654444666544466654444666544466666665444466666665444466666665444666666666666666666600000000000000666600000000000000000000022210000222222222222222100002222222100022210000222222210002221000000002221000000002221000000000000000000000000000000000000000000000066660000000006666000000000666600000666600006666000006666666600000666666660000666666666666666666666666666666666666666544466666665444466666665444466654446665444444446665444444446665444444444444444444666544444444444432224444444444444444446666666666666666666666600000666600000000000000000000000000066660000000000666600000000066660000000006666000066600000666666666666000066666666666666666666666666666666544466666665444466654446665444466654444444466654444444444444444444444444444444444444444444443222444444443222444444443222444322222224444322222224443222222222224444322222224444444444444666544444444444444444444446666666666666666666000006666666600000666666660000666666660000066660000666600000666600006666000000000066660000000006666000000000666000000000000000000000000000666";
@@ -346,48 +346,49 @@ public class MainActivity extends AppCompatActivity {
                 xBefore = x;
                 yBefore = y;
             }else if(Color.red(pixel) != Color.red(pixelBefore)){
-                if ((Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore)) == Color.red(pixelBefore)) && (direction.equals("0") | direction.equals("2") | direction.equals("6") | direction.equals("7") | direction.equals("1"))){
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore)) == Color.red(pixelBefore)) && (Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore-1)) != Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore))&&(direction.equals("0") | direction.equals("2") | direction.equals("6") | direction.equals("7") | direction.equals("1")))){
                     direction = "0";
                     x = xBefore + 1;
                     y = yBefore;
                 }else
-                if ((Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore+1)) == Color.red(pixelBefore))&& (direction.equals("0") | direction.equals("2") | direction.equals("7") | direction.equals("1") | direction.equals("5"))){
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore+1)) == Color.red(pixelBefore))&& (Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore+1)) != Color.red(scaledBitmapCopy.getPixel(xBefore+2,yBefore)))&&(direction.equals("0") | direction.equals("2") | direction.equals("7") | direction.equals("1") | direction.equals("5"))){
                     direction = "1";
                     x = xBefore+1;
                     y = yBefore+1;
                 }else
-                if ((Color.red(scaledBitmapCopy.getPixel(xBefore,yBefore+1)) ==  Color.red(pixelBefore)) && (direction.equals("0") | direction.equals("2") | direction.equals("4") | direction.equals("1") | direction.equals("3"))){
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore,yBefore+1)) ==  Color.red(pixelBefore)) && (Color.red(scaledBitmapCopy.getPixel(xBefore,yBefore+1)) !=  Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore+1))) &&(direction.equals("0") | direction.equals("2") | direction.equals("4") | direction.equals("1") | direction.equals("3"))){
                     direction = "2";
                     x = xBefore;
                     y = yBefore+1;
                 }else
-                if ((Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore+1)) == Color.red(pixelBefore)) && (direction.equals("2") | direction.equals("4") | direction.equals("1") | direction.equals("3") | direction.equals("5"))){
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore+1)) == Color.red(pixelBefore)) &&(Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore+1)) != Color.red(scaledBitmapCopy.getPixel(xBefore,yBefore+2))) && (direction.equals("2") | direction.equals("4") | direction.equals("1") | direction.equals("3") | direction.equals("5"))){
                     direction = "3";
                     x = xBefore-1;
                     y = yBefore+1;
                 }else
-                if ((Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore)) == Color.red(pixelBefore)) && (direction.equals("2") | direction.equals("6") | direction.equals("4") | direction.equals("3") | direction.equals("5"))){
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore)) == Color.red(pixelBefore)) &&(Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore)) != Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore+1))) && (direction.equals("2") | direction.equals("6") | direction.equals("4") | direction.equals("3") | direction.equals("5"))){
                     direction = "4";
                     x = xBefore-1;
                     y = yBefore;
                 }else
-                if ((Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore-1)) == Color.red(pixelBefore)) && (direction.equals("6") | direction.equals("4") | direction.equals("7") | direction.equals("3") | direction.equals("5"))){
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore-1)) == Color.red(pixelBefore)) &&(Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore-1)) != Color.red(scaledBitmapCopy.getPixel(xBefore-2,yBefore))) && (direction.equals("6") | direction.equals("4") | direction.equals("7") | direction.equals("3") | direction.equals("5"))){
                     direction = "5";
                     x = xBefore-1;
                     y = yBefore-1;
                 }else
-                if ((Color.red(scaledBitmapCopy.getPixel(xBefore,yBefore-1)) == Color.red(pixelBefore)) && (direction.equals("0") | direction.equals("6") | direction.equals("4") | direction.equals("7") | direction.equals("5"))){
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore,yBefore-1)) == Color.red(pixelBefore)) &&(Color.red(scaledBitmapCopy.getPixel(xBefore,yBefore-1)) != Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore-1))) && (direction.equals("0") | direction.equals("6") | direction.equals("4") | direction.equals("7") | direction.equals("5"))){
                     direction = "6";
                     x = xBefore;
                     y = yBefore-1;
                 }else
-                if ((Color.red(scaledBitmapCopy.getPixel(xBefore+1, yBefore-1)) == Color.red(pixelBefore)) && (direction.equals("0") | direction.equals("6") | direction.equals("7") | direction.equals("1") | direction.equals("5"))){
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore+1, yBefore-1)) == Color.red(pixelBefore)) && (Color.red(scaledBitmapCopy.getPixel(xBefore+1, yBefore-1)) != Color.red(scaledBitmapCopy.getPixel(xBefore, yBefore-2))) && (direction.equals("0") | direction.equals("6") | direction.equals("7") | direction.equals("1") | direction.equals("5"))){
                     direction = "7";
                     x = xBefore+1;
                     y = yBefore-1;
                 }
                 xBefore = x;
                 yBefore = y;
+
             }else if(Color.red(pixel) == Color.red(pixelBefore)){
                 if ((Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore)) == Color.red(pixelBefore)) && (Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore-1)) != Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore))&&(direction.equals("0") | direction.equals("2") | direction.equals("6") | direction.equals("7") | direction.equals("1")))){
                     direction = "0";
