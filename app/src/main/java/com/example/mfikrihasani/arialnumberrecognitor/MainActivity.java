@@ -31,9 +31,10 @@ public class MainActivity extends AppCompatActivity {
     ImageView bwImageView;
     TextView textView;
     ChainCode[] chainCodes;
-    String[] chainCodeResult;
+    String chainCodeResult;
     List<ChainCode> cd = new ArrayList<ChainCode>();
     int xImg, yImg;
+//    int t,tt,s,bd,b,bl,u,tl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,10 +109,9 @@ public class MainActivity extends AppCompatActivity {
 //                xImg = yImg = 0;
 //                xImg = Color.red(scaledBitmapCopy.getPixel(xImg+1,yImg));
                 getChainCode(xImg,yImg);
-                String textX = Integer.toString(xImg);
-                String textY = Integer.toString(yImg);
-                textView.setText("X: "+textX+", Y: "+textY);
-//                textView.setText("Color: "+textX);
+//                String textX = Integer.toString(xImg);
+//                String textY = Integer.toString(yImg);
+                textView.setText("Chain Code: "+chainCodeResult);
 //
 
                 bwImageView.setImageBitmap(scaledBitmapCopy);
@@ -207,7 +207,6 @@ public class MainActivity extends AppCompatActivity {
     private void getChainCode(int xAwal, int yAwal){
         Boolean bukanAwal = true;
         System.out.println("XAwal: "+xAwal+", YAwal: "+yAwal);
-
         int x,y,xBefore,yBefore, xSide, ySide;
         String direction;
 
@@ -223,54 +222,54 @@ public class MainActivity extends AppCompatActivity {
         xSide = xAwal;
         ySide = yAwal-1;
 
-        direction = "t";
-        Boolean out = false;
+        direction = "0";
 
         while(bukanAwal){
+            chainCodeResult = chainCodeResult+direction;
             switch (direction){
-                case "t":
+                case "0":
                     x = xBefore+1;
                     y = yBefore;
                     xSide = x;
                     ySide = y-1;
                     break;
-                case "tt":
+                case "1":
                     x = xBefore+1;
                     y = yBefore+1;
                     xSide = x+1;
                     ySide = y-1;
                     break;
-                case "s":
+                case "2":
                     x = xBefore;
                     y = yBefore+1;
                     xSide = x+1;
                     ySide = y;
                     break;
-                case "bd":
+                case "3":
                     x = xBefore-1;
                     y = yBefore+1;
                     xSide = x+1;
                     ySide = y+1;
                     break;
-                case "b":
+                case "4":
                     x = xBefore-1;
                     y = yBefore;
                     xSide = x;
                     ySide = y+1;
                     break;
-                case "bl":
+                case "5":
                     x = xBefore-1;
                     y = yBefore-1;
                     xSide = x-1;
                     ySide = y+1;
                     break;
-                case "u":
+                case "6":
                     x = xBefore;
                     y = yBefore-1;
                     xSide = x-1;
                     ySide = y;
                     break;
-                case "tl":
+                case "7":
                     x = xBefore+1;
                     y = yBefore-1;
                     xSide = x-1;
@@ -294,92 +293,91 @@ public class MainActivity extends AppCompatActivity {
                 xBefore = x;
                 yBefore = y;
             }else if(Color.red(pixel) != Color.red(pixelBefore)){
-                if ((Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore)) == Color.red(pixelBefore)) && (direction.equals("t") | direction.equals("s") | direction.equals("u") | direction.equals("tl") | direction.equals("tt"))){
-                    direction = "t";
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore)) == Color.red(pixelBefore)) && (direction.equals("0") | direction.equals("2") | direction.equals("6") | direction.equals("7") | direction.equals("1"))){
+                    direction = "0";
                     x = xBefore + 1;
                     y = yBefore;
                 }else
-                if ((Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore+1)) == Color.red(pixelBefore))&& (direction.equals("t") | direction.equals("s") | direction.equals("tl") | direction.equals("tt") | direction.equals("bl"))){
-                    direction = "tt";
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore+1)) == Color.red(pixelBefore))&& (direction.equals("0") | direction.equals("2") | direction.equals("7") | direction.equals("1") | direction.equals("5"))){
+                    direction = "1";
                     x = xBefore+1;
                     y = yBefore+1;
                 }else
-                if ((Color.red(scaledBitmapCopy.getPixel(xBefore,yBefore+1)) ==  Color.red(pixelBefore)) && (direction.equals("t") | direction.equals("s") | direction.equals("b") | direction.equals("tt") | direction.equals("bd"))){
-                    direction = "s";
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore,yBefore+1)) ==  Color.red(pixelBefore)) && (direction.equals("0") | direction.equals("2") | direction.equals("4") | direction.equals("1") | direction.equals("3"))){
+                    direction = "2";
                     x = xBefore;
                     y = yBefore+1;
                 }else
-                if ((Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore+1)) == Color.red(pixelBefore)) && (direction.equals("s") | direction.equals("b") | direction.equals("tt") | direction.equals("bd") | direction.equals("bl"))){
-                    direction = "bd";
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore+1)) == Color.red(pixelBefore)) && (direction.equals("2") | direction.equals("4") | direction.equals("1") | direction.equals("3") | direction.equals("5"))){
+                    direction = "3";
                     x = xBefore-1;
                     y = yBefore+1;
                 }else
-                if ((Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore)) == Color.red(pixelBefore)) && (direction.equals("s") | direction.equals("u") | direction.equals("b") | direction.equals("bd") | direction.equals("bl"))){
-                    direction = "b";
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore)) == Color.red(pixelBefore)) && (direction.equals("2") | direction.equals("6") | direction.equals("4") | direction.equals("3") | direction.equals("5"))){
+                    direction = "4";
                     x = xBefore-1;
                     y = yBefore;
                 }else
-                if ((Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore-1)) == Color.red(pixelBefore)) && (direction.equals("u") | direction.equals("b") | direction.equals("tl") | direction.equals("bd") | direction.equals("bl"))){
-                    direction = "bl";
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore-1)) == Color.red(pixelBefore)) && (direction.equals("6") | direction.equals("4") | direction.equals("7") | direction.equals("3") | direction.equals("5"))){
+                    direction = "5";
                     x = xBefore-1;
                     y = yBefore-1;
                 }else
-                if ((Color.red(scaledBitmapCopy.getPixel(xBefore,yBefore-1)) == Color.red(pixelBefore)) && (direction.equals("t") | direction.equals("u") | direction.equals("b") | direction.equals("tl") | direction.equals("bl"))){
-                    direction = "u";
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore,yBefore-1)) == Color.red(pixelBefore)) && (direction.equals("0") | direction.equals("6") | direction.equals("4") | direction.equals("7") | direction.equals("5"))){
+                    direction = "6";
                     x = xBefore;
                     y = yBefore-1;
                 }else
-                if ((Color.red(scaledBitmapCopy.getPixel(xBefore+1, yBefore-1)) == Color.red(pixelBefore)) && (direction.equals("t") | direction.equals("u") | direction.equals("tl") | direction.equals("tt") | direction.equals("bl"))){
-                    direction = "tl";
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore+1, yBefore-1)) == Color.red(pixelBefore)) && (direction.equals("0") | direction.equals("6") | direction.equals("7") | direction.equals("1") | direction.equals("5"))){
+                    direction = "7";
                     x = xBefore+1;
                     y = yBefore-1;
                 }
                 xBefore = x;
                 yBefore = y;
             }else if(Color.red(pixel) == Color.red(pixelBefore)){
-                if ((Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore)) == Color.red(pixelBefore)) && (Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore-1)) != Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore))&&(direction.equals("t") | direction.equals("s") | direction.equals("u") | direction.equals("tl") | direction.equals("tt")))){
-                    direction = "t";
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore)) == Color.red(pixelBefore)) && (Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore-1)) != Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore))&&(direction.equals("0") | direction.equals("2") | direction.equals("6") | direction.equals("7") | direction.equals("1")))){
+                    direction = "0";
                     x = xBefore + 1;
                     y = yBefore;
                 }else
-                if ((Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore+1)) == Color.red(pixelBefore))&& (Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore+1)) != Color.red(scaledBitmapCopy.getPixel(xBefore+2,yBefore)))&&(direction.equals("t") | direction.equals("s") | direction.equals("tl") | direction.equals("tt") | direction.equals("bl"))){
-                    direction = "tt";
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore+1)) == Color.red(pixelBefore))&& (Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore+1)) != Color.red(scaledBitmapCopy.getPixel(xBefore+2,yBefore)))&&(direction.equals("0") | direction.equals("2") | direction.equals("7") | direction.equals("1") | direction.equals("5"))){
+                    direction = "1";
                     x = xBefore+1;
                     y = yBefore+1;
                 }else
-                if ((Color.red(scaledBitmapCopy.getPixel(xBefore,yBefore+1)) ==  Color.red(pixelBefore)) && (Color.red(scaledBitmapCopy.getPixel(xBefore,yBefore+1)) !=  Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore+1))) &&(direction.equals("t") | direction.equals("s") | direction.equals("b") | direction.equals("tt") | direction.equals("bd"))){
-                    direction = "s";
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore,yBefore+1)) ==  Color.red(pixelBefore)) && (Color.red(scaledBitmapCopy.getPixel(xBefore,yBefore+1)) !=  Color.red(scaledBitmapCopy.getPixel(xBefore+1,yBefore+1))) &&(direction.equals("0") | direction.equals("2") | direction.equals("4") | direction.equals("1") | direction.equals("3"))){
+                    direction = "2";
                     x = xBefore;
                     y = yBefore+1;
                 }else
-                if ((Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore+1)) == Color.red(pixelBefore)) &&(Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore+1)) != Color.red(scaledBitmapCopy.getPixel(xBefore,yBefore+2))) && (direction.equals("s") | direction.equals("b") | direction.equals("tt") | direction.equals("bd") | direction.equals("bl"))){
-                    direction = "bd";
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore+1)) == Color.red(pixelBefore)) &&(Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore+1)) != Color.red(scaledBitmapCopy.getPixel(xBefore,yBefore+2))) && (direction.equals("2") | direction.equals("4") | direction.equals("1") | direction.equals("3") | direction.equals("5"))){
+                    direction = "3";
                     x = xBefore-1;
                     y = yBefore+1;
                 }else
-                if ((Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore)) == Color.red(pixelBefore)) &&(Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore)) != Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore+1))) && (direction.equals("s") | direction.equals("u") | direction.equals("b") | direction.equals("bd") | direction.equals("bl"))){
-                    direction = "b";
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore)) == Color.red(pixelBefore)) &&(Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore)) != Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore+1))) && (direction.equals("2") | direction.equals("6") | direction.equals("4") | direction.equals("3") | direction.equals("5"))){
+                    direction = "4";
                     x = xBefore-1;
                     y = yBefore;
                 }else
-                if ((Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore-1)) == Color.red(pixelBefore)) &&(Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore-1)) != Color.red(scaledBitmapCopy.getPixel(xBefore-2,yBefore))) && (direction.equals("u") | direction.equals("b") | direction.equals("tl") | direction.equals("bd") | direction.equals("bl"))){
-                    direction = "bl";
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore-1)) == Color.red(pixelBefore)) &&(Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore-1)) != Color.red(scaledBitmapCopy.getPixel(xBefore-2,yBefore))) && (direction.equals("6") | direction.equals("4") | direction.equals("7") | direction.equals("3") | direction.equals("5"))){
+                    direction = "5";
                     x = xBefore-1;
                     y = yBefore-1;
                 }else
                 if ((Color.red(scaledBitmapCopy.getPixel(xBefore,yBefore-1)) == Color.red(pixelBefore)) &&(Color.red(scaledBitmapCopy.getPixel(xBefore,yBefore-1)) != Color.red(scaledBitmapCopy.getPixel(xBefore-1,yBefore-1))) && (direction.equals("t") | direction.equals("u") | direction.equals("b") | direction.equals("tl") | direction.equals("bl"))){
-                    direction = "u";
+                    direction = "6";
                     x = xBefore;
                     y = yBefore-1;
                 }else
-                if ((Color.red(scaledBitmapCopy.getPixel(xBefore+1, yBefore-1)) == Color.red(pixelBefore)) && (Color.red(scaledBitmapCopy.getPixel(xBefore+1, yBefore-1)) == Color.red(scaledBitmapCopy.getPixel(xBefore, yBefore-2))) && (direction.equals("t") | direction.equals("u") | direction.equals("tl") | direction.equals("tt") | direction.equals("bl"))){
-                    direction = "tl";
+                if ((Color.red(scaledBitmapCopy.getPixel(xBefore+1, yBefore-1)) == Color.red(pixelBefore)) && (Color.red(scaledBitmapCopy.getPixel(xBefore+1, yBefore-1)) == Color.red(scaledBitmapCopy.getPixel(xBefore, yBefore-2))) && (direction.equals("0") | direction.equals("6") | direction.equals("7") | direction.equals("1") | direction.equals("5"))){
+                    direction = "7";
                     x = xBefore+1;
                     y = yBefore-1;
                 }
                 xBefore = x;
                 yBefore = y;
-
             }
         }
     }
